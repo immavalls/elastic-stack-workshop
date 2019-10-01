@@ -2,7 +2,7 @@
 
 - [x] Create scaffolding.
 - [x] Add links to infraUI, etc. to initial README.md
-- [ ] Create step01 and test it.
+- [x] Create step01 and test it.
 - [ ] Create step02 and test it.
 - [ ] Create step03 and test it.
 - [ ] Create PPT for presentation, and upload it. Using the sponsors slide. https://ela.st/scbcn19-elk-workshop
