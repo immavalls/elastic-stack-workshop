@@ -2,7 +2,11 @@
 
 **Nota**.  Para iniciar el stack, es necesario que no haya ningún servicio arrancado en los puertos 9200, 9300 (elasticsearch), 5601 (kibana).
 
-En este apartado vamos a arrancar el stack elastic definido en [docker-compose.yml](../../docker-compose.yml). El objetivo es doble:
+En este apartado vamos a arrancar el stack elastic definido en [docker-compose.yml](../../docker-compose.yml).
+
+![Elastic Stack](./img/elastic-stack.png)
+
+El objetivo es triple:
 
 1. Comprobar como funciona el servicio de [Uptime](https://www.elastic.co/guide/en/kibana/7.3/xpack-uptime.html) con los datos recolectados por [Heartbeat](https://www.elastic.co/guide/en/beats/heartbeat/7.3/index.html).
 2. Visualizar algunas métricas de nuestra [Infraestructura](https://www.elastic.co/guide/en/kibana/7.3/xpack-infra.html) con los datos recolectados por [Metricbeat](https://www.elastic.co/guide/en/beats/metricbeat/7.3/index.html) de sistema y docker.
