@@ -198,11 +198,87 @@ Pulsaremos el botón `Save` en la barra superior y guardaremos la búsqueda con 
 
 ## Creación de Dashboard en Kibana
 
+Vamos a crear un simple dashboard en Kibana para visualizar nuestros datos. Para ello, crearemos primero diversas visualizaciones.
+
+En Kibana, seleccionar el menú `Visualize`.
+
+![Visualize](./img/visualize-icon.png)
+
+Clic en el botón `Create new visualization`, y seleccionar el tipo `Pie`.
+
+![Visualize](./img/visualize-select-pie.png)
+
+En el siguiente paso, `Choose a source`, seleccionar la búsqueda guardada como `[Filebeat] Host/Process`.
+
+![Source](./img/visualize-select-source-pie.png)
+
+En la visualización, pulsar el enlace `+Add` bajo Buckets, y seleccionar `Split slices`.
+
+![Source](./img/visualize-pie-add-bucket.png)
+
+Seleccionar una `Terms` aggregation, sobre el campo `host_name` y pulsar la flecha azul para aplicar los cambios.
+
+![Aggs host_name](./img/visualize-pie-host_name-terms.png)
+
+Añadir una segunda agregación en buckets, de tipo `Terms`, sobre el campo `host_name`. Y aplicar el cambio.
+
+![Aggs process_name](./img/visualize-pie-process_name-terms.png)
+
+Aplicar y comprobar el resultado.
+
+![Pie](./img/visualize-pie.png)
+
+Pulsar el enlace `Save` en la barra superior y guardar la visualización con el nombre `[Filebeat] Process/Host pie`.
+
+Pulsar en el enlace `Visualize` en la barra superior de navegación y crear una segunda visualización, de tipo `Tag Cloud`.  
+
+![Tag cloud](./img/visualize-tag-cloud-select.png)
+
+Seleccionar la misma fuente de datos, la búsqueda guardada como `[Filebeat] Host/Process`. Y bajo `Buckets` en la visualización, añadir `Tags`.
+
+![Tag cloud](./img/visualize-tag-cloud-bucket-add.png)
+
+Y añadir una agregación de nuevo de tipo `Terms`, sobre el campo `process_name`, modificando el tamaño por defecto de 5 a 20.
+
+![Tag cloud](./img/visualize-tag-cloud-process_name-aggs.png)
+
+Cambiar de la pestaña `Data` a `Options` y modificar `Orientations` a `multiple`. 
+
+![Tag cloud](./img/visualize-tag-cloud-process_name-options.png)
+
+Aplicar los cambios.
+
+![Tag cloud](./img/visualize-tag-cloud.png)
+
+Guardar esta visualización con el nombre `[Filebeat] Process/Host cloud tag`.
+
+Pasaremos a crear un dashboard que incluya estas visualizaciones. Seleccionamos en el menú de la izquierda `Dashboard`. Y creamos un nuevo dashboard pulsando el botón `Create new dashboard`. Si estamos visualizando otro dashboard, volver al menús clicando en el enlace `Dashboard` en el menú superior.
+
+![Dashboard Menu](./img/menu-dashboard.png)
+
+![Dashboard Create](./img/create-dashboard.png)
+
+Clicar en el enlace `Add` en el menú superior.
+
+![Dashboard Add](./img/dashboard-add.png)
+
+Y añadir las dos visualizaciones guardadas `[Filebeat] Process/Host cloud tag`, `[Filebeat] Process/Host pie`, y la búsqueda `[Filebeat] Host/Process`.
+
+Guardar con el nombre `[Filebeat] Dashboard` pulsando la opción `Save`.
+
+![Dashboard](./img/dashboard-filebeat.png)
+
+Adicionalmente, podemos comprobar que al pulsar por ejemplo en un host_name concreto sobre el `pie chart`, se aplica un filtro a todo el dashboard. En el ejemplo, estamos filtrando por `host_name: districtholistic.net`.
+
+![Dashboard](./img/dashboard-filebeat-filtered.png)
+
 ## Finalizamos
 
-Y para finalizar, podemos eliminar todo lo creado hasta el momento, liberando recursos, ejecutando:
+Y para finalizar, podemos eliminar todo lo creado hasta el momento, liberando recursos, ejecutando los siguientes comandos:
 
 ```shell
+docker stop flog_json
+rm ./test/*.log
 docker-compose down -v
 ```
 
