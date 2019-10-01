@@ -193,4 +193,4 @@ Y pulsando `add`, se añadirá ese campo a la vista central.
 
 ## Finalmente
 
-Con esto, finalizamos la introducción al Stack Elastic, y podemos proceder al siguiente apartado **[Ingesta de logs](../paso02/README.mds)**.
+Con esto, finalizamos la introducción al Stack Elastic, y podemos proceder al siguiente apartado **[Ingesta de logs](../paso02/README.md)**.
