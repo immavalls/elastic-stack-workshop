@@ -9,16 +9,16 @@ La decisión sobre que usar depende de ti.
 
 Para que nos entendamos, ¿el aspecto de tus logs es este?
 
-```
-2019-10-01T14:23:10.180Z nationalviral.io molestias 8974 ID85 - Try to bypass the SSL driver, maybe it will generate the optical feed!
-2019-10-01T14:23:10.180Z directredefine.org nemo 5382 ID819 - If we program the monitor, we can get to the AI transmitter through the bluetooth RSS capacitor!
+```json
+{"timestamp":1569939745276,"message":"2019-10-01T14:22:25.276Z customere-services.org est 693 ID363 - The IB alarm is down, hack the back-end driver so we can input the HDD hard drive!"}
+{"timestamp":1569939745276,"message":"2019-10-01T14:22:25.276Z centralcross-media.com exercitationem 7240 ID11 - Parsing the protocol won't do anything, we need to transmit the multi-byte AI array!"}
 ```
 
 ¿O más bien este?
 
-```json
-{"timestamp":1569939745276,"message":"2019-10-01T14:22:25.276Z customere-services.org est 693 ID363 - The IB alarm is down, hack the back-end driver so we can input the HDD hard drive!"}
-{"timestamp":1569939745276,"message":"2019-10-01T14:22:25.276Z centralcross-media.com exercitationem 7240 ID11 - Parsing the protocol won't do anything, we need to transmit the multi-byte AI array!"}
+```
+2019-10-01T14:23:10.180Z nationalviral.io molestias 8974 ID85 - Try to bypass the SSL driver, maybe it will generate the optical feed!
+2019-10-01T14:23:10.180Z directredefine.org nemo 5382 ID819 - If we program the monitor, we can get to the AI transmitter through the bluetooth RSS capacitor!
 ```
 
 En este tutorial, podrás escoger lo que más te apetezca: **¡Elige tu propia aventura!**
