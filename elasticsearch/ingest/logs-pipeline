@@ -1,0 +1,23 @@
+PUT _ingest/pipeline/logs-pipeline
+{
+  "description": "Pipeline para ingesta de logs",
+  "processors": [
+    {
+      "set": {
+        "field": "ingest.timestamp",
+        "value": "{{_ingest.timestamp}}"
+      }
+    },
+    {
+      "dissect": {
+        "field": "message",
+        "pattern": "%{@timestamp} %{host_name} %{process_name} %{process_id} %{message_id} %{event_data} %{message_content}"
+      }
+    },
+    {
+      "remove": {
+        "field": "message"
+      }
+    }
+  ]
+}

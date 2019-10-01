@@ -1,0 +1,23 @@
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /var/log/sample-json-logs.log
+  json.keys_under_root: true
+  json.add_error_key: true
+  json.message_key: message
+
+output.elasticsearch:
+  hosts: ["elasticsearch:9200"]
+  username: '${ES_USERNAME:elastic}'
+  password: '${ES_PASSWORD:changeme}'
+  # pipeline: logs-pipeline
+
+xpack.monitoring.enabled: true
+logging.to_files: false
+
+setup:
+  dashboards.enabled: false
+  template.overwrite: false
+  template.settings.index.number_of_shards: 1
+  template.settings.index.number_of_replicas: 0

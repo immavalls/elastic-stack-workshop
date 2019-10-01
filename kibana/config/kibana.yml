@@ -1,0 +1,18 @@
+---
+## Default Kibana configuration from kibana-docker.
+## https://github.com/elastic/kibana-docker/blob/master/.tedi/template/kibana.yml.j2
+#
+server.name: kibana
+server.host: "0"
+elasticsearch.hosts: [ "http://elasticsearch:9200" ]
+xpack.monitoring.ui.container.elasticsearch.enabled: true
+
+## X-Pack security credentials
+#
+elasticsearch.username: elastic
+elasticsearch.password: changeme
+
+## X-Pack LogsUI configuration
+xpack.infra.sources.default.logAlias: "filebeat-*,logstash-*,flogs-*"
+xpack.infra.sources.default.fields.timestamp: "@timestamp"
+xpack.infra.sources.default.fields.message: ['message', '@message', 'message_content']

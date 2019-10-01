@@ -30,7 +30,7 @@ En este workshop se demostrarán las capacidades básicas del Stack Elastic para
 
 1. [Introducción al Stack Elastic](./doc/paso01/README.md)
  - En este apartado, se arrancará un stack elastic con un cluster de un nodo de [Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/7.3/index.html), una instancia de [Kibana](https://www.elastic.co/guide/en/kibana/7.3/index.html), y varios [Beats](https://www.elastic.co/guide/en/beats/libbeat/7.3/beats-reference.html): [Metricbeat](https://www.elastic.co/guide/en/beats/metricbeat/7.3/index.html) y [Heartbeat](https://www.elastic.co/guide/en/beats/heartbeat/7.3/index.html).
- - Veremos como utilizar Kibana para visualizar las métricas ([Discover](https://www.elastic.co/guide/en/kibana/7.3/discover.html) e [Infrastructure UI](https://www.elastic.co/guide/en/kibana/7.3/xpack-infra.html)), así como el uso de Uptime.
+ - Veremos como utilizar Kibana para visualizar las métricas ([Discover](https://www.elastic.co/guide/en/kibana/7.3/discover.html) e [Infrastructure UI](https://www.elastic.co/guide/en/kibana/7.3/xpack-infra.html)), así como el uso de [Uptime](https://www.elastic.co/guide/en/kibana/7.3/xpack-uptime.html).
 2. [Ingesta de logs](./doc/paso02/README.md)
  - Usaremos [Filebeat](https://www.elastic.co/guide/en/beats/filebeat/7.3/index.html) o [Logstash](https://www.elastic.co/guide/en/logstash/current/index.html) para la ingesta de logs en Elasticsearch y los visualizaremos con Kibana [Logs UI](https://www.elastic.co/guide/en/kibana/7.3/xpack-logs.html).
 3. [Modelado simple de logs](./doc/paso03/README.md)

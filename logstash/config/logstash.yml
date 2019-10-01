@@ -1,0 +1,18 @@
+---
+## Default Logstash configuration from logstash-docker.
+## from https://github.com/elastic/logstash-docker/blob/master/build/logstash/config/logstash-full.yml
+#
+http.host: "0.0.0.0"
+xpack.monitoring.elasticsearch.hosts: [ "http://elasticsearch:9200" ]
+
+## X-Pack security credentials
+#
+xpack.monitoring.elasticsearch.username: '${ES_USERNAME:elastic}'
+xpack.monitoring.elasticsearch.password: '${ES_PASSWORD:changeme}'
+
+## Centraliezed pipeline management
+xpack.management.enabled: true
+xpack.management.elasticsearch.hosts: [ "http://elasticsearch:9200" ]
+xpack.management.pipeline.id: ["heartbeat", "flog"]
+xpack.management.elasticsearch.username: '${ES_USERNAME:elastic}' 
+xpack.management.elasticsearch.password: '${ES_PASSWORD:changeme}'

@@ -1,0 +1,76 @@
+heartbeat.monitors:
+
+# Monitor all containers using icmp / ping
+- type: icmp
+  schedule: '*/5 * * * * * *'
+  hosts: ["elasticsearch","metricbeat","kibana"]
+  ipv4: true
+  ipv6: true
+  mode: any
+  timeout: 3s
+  wait: 1s
+
+# Monitor the Elasticsearch instance via http
+- type: http
+  enabled: true
+  schedule: '@every 5s'
+  urls: ["http://elasticsearch:9200"]
+  ipv4: true
+  ipv6: true
+  mode: any
+  timeout: 3s
+  username: '${ES_USERNAME:elastic}'
+  password: '${ES_PASSWORD:changeme}'
+  check.request:
+    method: "GET"
+  check.response:
+    status: 200
+
+# Monitor the Kibana instance
+- type: http
+  enabled: true
+  schedule: '@every 5s'
+  urls: ["http://kibana:5601"]
+  ipv4: true
+  ipv6: true
+  mode: any
+  timeout: 3s
+  check.request:
+    method: "GET"
+  check.response:
+    status: 200
+
+# Setup processor metadata
+processors:
+- add_docker_metadata: ~
+- add_observer_metadata:
+    netinfo.enabled: false
+    cache.ttl: 5m
+    geo:
+      name: my-laptop
+      location: 41.3984, 2.1741
+      continent_name: Europe
+      continent_iso_code: EU
+      country_name: Spain
+      country_iso_code: ES
+      region_name: Barcelona
+      region_iso_code: B
+      city_name: Barcelona
+
+# Enable monitoring
+xpack.monitoring.enabled: true
+
+# Send to elasticsearch
+output.elasticsearch:
+  hosts: ["elasticsearch:9200"]
+  username: '${ES_USERNAME:elastic}'
+  password: '${ES_PASSWORD:changeme}'
+
+logging.to_files: false
+
+# Setup heartbeat index with 1 primary shard, 0 replicas (1-node elasticsearch cluster)
+setup:
+  dashboards.enabled: false
+  template.overwrite: false
+  template.settings.index.number_of_shards: 1
+  template.settings.index.number_of_replicas: 0

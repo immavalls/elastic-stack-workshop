@@ -1,0 +1,27 @@
+metricbeat.config.modules:
+  path: ${path.config}/modules.d/*.yml
+  reload.period: 10s
+  reload.enabled: true
+
+processors:
+- add_docker_metadata: ~
+
+xpack.monitoring.enabled: true
+
+output.elasticsearch:
+  hosts: ["elasticsearch:9200"]
+  username: '${ES_USERNAME:elastic}'
+  password: '${ES_PASSWORD:changeme}'
+
+logging.to_files: false
+
+setup:
+  kibana.host: "kibana:5601"
+  kibana.username: '${ES_USERNAME:elastic}'
+  kibana.password: '${ES_PASSWORD:changeme}'
+  dashboards.enabled: true
+  template.overwrite: false
+  template.settings.index.number_of_shards: 1
+  template.settings.index.number_of_replicas: 0
+
+  

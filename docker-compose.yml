@@ -1,0 +1,133 @@
+version: '2.1'
+
+services:
+
+  # Elasticsearch container: 1-node cluster at http://elasticsearch:9200
+  elasticsearch:
+    container_name: elasticsearch
+    hostname: elasticsearch
+    image: "docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION}"
+    volumes:
+      - 'es_data:/usr/share/elasticsearch/data'
+      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - http.host=0.0.0.0
+      - transport.host=127.0.0.1
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms${ES_JVM_HEAP} -Xmx${ES_JVM_HEAP}"
+      - ELASTIC_PASSWORD=${ES_PASSWORD}
+    mem_limit: ${ES_MEM_LIMIT}
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    healthcheck:
+      test: ["CMD", "curl","-s" ,"-f", "-u", "elastic:${ES_PASSWORD}", "http://localhost:9200/_cat/health"]
+    networks:
+      - elk
+
+  # Heartbeat container
+  heartbeat:
+    container_name: heartbeat
+    hostname: heartbeat
+    user: root # To read the docker socket
+    image: "docker.elastic.co/beats/heartbeat:${ELK_VERSION}"
+    volumes:
+      # Mount heartbeat configuration so we can edit
+      - ./heartbeat/config/heartbeat.yml:/usr/share/heartbeat/heartbeat.yml
+      # Allows us to report on docker from the hosts information.
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      elasticsearch: { condition: service_healthy }
+      kibana: { condition: service_healthy }
+    command: heartbeat -e -strict.perms=false
+    networks: ['elk']
+    restart: on-failure
+  
+  # Metricbeat container
+  metricbeat:
+    container_name: metricbeat
+    hostname: metricbeat
+    user: root # to read the docker socket
+    image: docker.elastic.co/beats/metricbeat:${ELK_VERSION}
+    volumes:
+      # Mount metricbeat configuration file
+      - ./metricbeat/config/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml
+      # Mount the modules.d directory into the container so they can be dyncamically changed and reloaded
+      - ./metricbeat/config/modules.d/:/usr/share/metricbeat/modules.d/
+      # Enables Metricbeat to monitor the Docker host rather than the Metricbeat container. These are used by the system module.
+      - /proc:/hostfs/proc:ro
+      - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
+      # Allows us to report on docker from the hosts information.
+      - /var/run/docker.sock:/var/run/docker.sock
+      # Mount the host filesystem so we can report on disk usage with the system module.
+      - /:/hostfs:ro
+    command: metricbeat -e -system.hostfs=/hostfs -strict.perms=false
+    networks: ['elk']
+    restart: on-failure
+    depends_on:
+      elasticsearch: { condition: service_healthy }
+      kibana: { condition: service_healthy }
+  
+  # Filebeat container
+  # filebeat:
+  #   container_name: filebeat
+  #   hostname: filebeat
+  #   image: "docker.elastic.co/beats/filebeat:${ELK_VERSION}"
+  #   volumes:
+  #     # Mount filebeat configuration
+  #     - ./filebeat/config/filebeat.yml:/usr/share/filebeat/filebeat.yml
+  #     # Mount log directory into container /tmp/log
+  #     - ./test/:/var/log/
+  #   networks:
+  #     - elk
+  #   restart: on-failure
+  #   depends_on:
+  #     elasticsearch: { condition: service_healthy }  
+  
+  # Logstash container
+  # logstash:
+  #   image: docker.elastic.co/logstash/logstash:${ELK_VERSION}
+  #   container_name: logstash
+  #   hostname: logstash
+  #   volumes:
+  #     # Mount logstash configuration with centralized pipeline management
+  #     - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+  #     # Mount log location on host
+  #     - ./test:/var/log/
+  #   ports:
+  #     - "9600:9600"
+  #   environment:
+  #     LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+  #   networks:
+  #     - elk
+  #   depends_on:
+  #     elasticsearch: { condition: service_healthy }
+
+  # Kibana container
+  kibana:
+    container_name: kibana
+    hostname: kibana
+    image: "docker.elastic.co/kibana/kibana:${ELK_VERSION}"
+    volumes:
+      - ./kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
+    ports:
+      - "5601:5601"
+    networks:
+      - elk
+    depends_on:
+      elasticsearch: { condition: service_healthy }
+    restart: on-failure
+    healthcheck:
+      test: ["CMD", "curl", "-s", "-f", "-u", "elastic:${ES_PASSWORD}", "http://localhost:5601/api/status"]
+      retries: 6
+
+networks: 
+  elk:
+
+volumes:
+  es_data:
+    driver: local
