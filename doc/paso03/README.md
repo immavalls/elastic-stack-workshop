@@ -20,7 +20,7 @@ Así podremos agrupar valores similares, visualizarlos, y explotar toda la poten
 
 Para ello, necesitaremos conocer la **estructura** de nuestros logs, e indicársela a Elasticsearch.
 
-En función de cual es tu aventura elegida, selecciona el siguiente paso:
+En función de qué aventura has elegido, selecciona el siguiente paso:
 
 1. Estoy ingestando datos con **[Filebeat](./filebeat.md)**
 2. Estoy usando **[Logstash](./logstash.md)**
