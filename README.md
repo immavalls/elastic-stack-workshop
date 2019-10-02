@@ -36,4 +36,4 @@ En este workshop se demostrarán las capacidades básicas del Stack Elastic para
 3. [Modelado simple de logs](./doc/paso03/README.md)
  - Reingestaremos estos logs, esta vez modelando los campos. Crearemos nuestro primer [dashboard](https://www.elastic.co/guide/en/kibana/7.3/dashboard.html) para visualizar la información agregada.
 4. [¿Por dónde seguir?](./doc/paso04/README.md)
- - Daremos algunos consejos sobre los siguientes pasos.
+ - Daremos algunos consejos sobre posibles siguientes pasos.
