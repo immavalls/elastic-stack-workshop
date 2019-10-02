@@ -145,7 +145,9 @@ docker logs -f filebeat
 
 ## Visualizar logs en Discover
 
-Volvemos a Kibana. Para visualizar los logs debemos primero crear un [Index Pattern](https://www.elastic.co/guide/en/kibana/7.3/tutorial-define-index.html). Los index patterns nos permiten acceder a los índices en elasticsearch, y, por lo tanto, a los documentos que tenemos almacenados en estos índices.
+Volvemos a Kibana. 
+
+Para visualizar los logs debemos primero crear un [Index Pattern](https://www.elastic.co/guide/en/kibana/7.3/tutorial-define-index.html). Los index patterns nos permiten acceder a los índices en elasticsearch, y, por lo tanto, a los documentos que tenemos almacenados en estos índices.
 
 Si no le indicamos lo contrario en la configuración de filebeat para envío a elasticsearch, los índices que se crearán son con el nombre `filebeat-*`.
 
@@ -159,16 +161,16 @@ Pulsamos el botón azul `Create Index Pattern` y damos de alta un patrón `fileb
 
 ![Index Patterns](./img/index-pattern-create-1.png)
 
-Hacemos clic en `Next step`y seleccionaremos el campo a usar para mostrar la serie temporal de datos en Discover. En 
+Hacemos clic en `Next step`y seleccionaremos el campo a usar para mostrar la serie temporal de datos en Discover. En
 este caso, escogemos `@timestamp`.
 
 ![Index Patterns](./img/index-pattern-create-2.png)
 
-Y pulsams `Create Index Pattern`.
+Y pulsamos `Create Index Pattern`.
 
-Seleccionamos en el menú de la izquierda en Kibana `Discover`. 
+Seleccionamos en el menú de la izquierda en Kibana `Discover`.
 
-Hacemos clic en `New` en el menú superior, para limpiar cualquier filtro que tuviéramos en la búsqueda. 
+Hacemos clic en `New` en el menú superior, para limpiar cualquier filtro que tuviéramos en la búsqueda.
 
 Y en el selector escogemos el index pattern que acabamos de crear, `filebeat-*`.
 
@@ -180,9 +182,9 @@ Es posible usar la barra de búsqueda para filtrar nuestros datos. Por ejemplo, 
 
 ![Discover KQL](./img/discover-kql-2.png)
 
-El lenguage por defecto es [Kibana Query Language (KQL)](https://www.elastic.co/guide/en/kibana/7.3/kuery-query.html). 
+El lenguage usado para filtrar las búsquedas es [Kibana Query Language (KQL)](https://www.elastic.co/guide/en/kibana/7.3/kuery-query.html).
 
-Eliminamos el filtro de las búsquedas.
+**Eliminamos** el filtro de las búsquedas para recuperar todos los datos.
 
 Finalmente, vamos a crear una tabla para utilizarla en la construcción del Dashboard en el siguiente apartado. Queremos una vista que nos muestre `host_name` y `process_name`. En la lista de campos disponibles, localizamos esos campos y pulsamos el botón azul `add` para ambos.
 
@@ -220,7 +222,7 @@ Seleccionar una `Terms` aggregation, sobre el campo `host_name` y pulsar la flec
 
 ![Aggs host_name](./img/visualize-pie-host_name-terms.png)
 
-Añadir una segunda agregación en buckets, de tipo `Terms`, sobre el campo `host_name`. Y aplicar el cambio.
+Añadir una segunda agregación en buckets, de tipo `Terms`, sobre el campo `process_name`. Y aplicar el cambio.
 
 ![Aggs process_name](./img/visualize-pie-process_name-terms.png)
 
@@ -252,7 +254,9 @@ Aplicar los cambios.
 
 Guardar esta visualización con el nombre `[Filebeat] Process/Host cloud tag`.
 
-Pasaremos a crear un dashboard que incluya estas visualizaciones. Seleccionamos en el menú de la izquierda `Dashboard`. Y creamos un nuevo dashboard pulsando el botón `Create new dashboard`. Si estamos visualizando otro dashboard, volver al menús clicando en el enlace `Dashboard` en el menú superior.
+Pasaremos finalmente a crear un dashboard que incluya estas visualizaciones.
+
+Seleccionamos en el menú de la izquierda `Dashboard`. Y creamos un nuevo dashboard pulsando el botón `Create new dashboard`. Si estamos visualizando otro dashboard, volver al menús clicando en el enlace `Dashboard` en el menú superior.
 
 ![Dashboard Menu](./img/menu-dashboard.png)
 
@@ -274,14 +278,4 @@ Adicionalmente, podemos comprobar que al pulsar por ejemplo en un host_name conc
 
 ## Finalizamos
 
-Y para finalizar, podemos eliminar todo lo creado hasta el momento, liberando recursos, ejecutando los siguientes comandos:
-
-```shell
-docker stop flog_json
-rm ./test/*.log
-docker-compose down -v
-```
-
-> `-v` para eliminar el volumen de datos de elasticsearch
-
-Y pasaremos a comentar cuales podrían ser los [**siguientes pasos**](../paso04/README.md).
+Para finalizar, comentaremos cuales podrían ser los [**siguientes pasos**](../paso04/README.md).
