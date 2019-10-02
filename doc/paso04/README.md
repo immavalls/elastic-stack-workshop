@@ -2,6 +2,7 @@
 
 - Añade [APM](https://www.elastic.co/es/blog/monitoring-applications-with-elasticsearch-and-elastic-apm) al stack, para la trazabilidad en aplicaciones.
 - Modela los documentos usando [Elastic Common Schema - ECS](https://www.elastic.co/es/blog/introducing-the-elastic-common-**schema**).
+- Organizate con [Kibana Spaces](https://www.elastic.co/guide/en/kibana/7.3/xpack-spaces.html).
 - Configura [Index Lifecycle Management](https://www.elastic.co/guide/en/elasticsearch/reference/7.3/getting-started-index-lifecycle-management.html) para gestionar el ciclo de vida de los índcies en elasticsearch.
 - Prepárate para escalar tu cluster elasticsearch implementando una [arquitectura hot/warm/cold](https://www.elastic.co/es/blog/implementing-hot-warm-cold-in-elasticsearch-with-index-lifecycle-management).
 - Securiza tus configuración usando [keystores](https://nicklang.com/posts/learning-to-love-the-keystore) para guardar tus secretos.
