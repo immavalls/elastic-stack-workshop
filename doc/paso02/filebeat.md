@@ -32,7 +32,7 @@ Y ejecutaremos el siguiente comando para empezar a generar logs dentro de la car
 docker run -it --name flog_json --rm immavalls/flog:1.0 -l -f rfc5424 -y json -d 1 -s 1 > ./test/sample-json-logs.log
 ```
 
-Si queremos parar la generación de logs, bastará con ejecutar `Cntrl-C` y parar el contenedor docker que está generando logs.
+Si queremos parar la generación de logs, bastará con ejecutar `Ctrl-C` y parar el contenedor docker que está generando logs.
 
 Por ahora, sin parar el contenedor, abriendo otro terminal comprobemos que se estan generando logs cada segundo.
 
@@ -52,9 +52,9 @@ Comprobamos que filebeat arranca bien:
 docker logs -f filebeat
 ```
 
-## Visualización via Logs UI
+## Visualización vía Logs UI
 
-Volvemos a Kibana, y selecionamos en el menú de la izquiera `Logs`.
+Volvemos a Kibana, y selecionamos en el menú de la izquierda `Logs`.
 
 ![Logs Menu](./img/logs-icon.png)
 
@@ -68,7 +68,7 @@ También podemos modificar el tamaño de letra de los logs, si queremos hacer wr
 
 ![Logs Customization](./img/logs-view-custom.png)
 
-Pulsando en `Configuration`, se puede modificar que índices de elasticsearch va a leer, el campos a usar como `timestamp`, etc. Interesante en la configuración, ir a la segunda pestaña, `Log Columns`, donde podemos indicar qué campos queremos mostrar en la pantalla. 
+Pulsando en `Configuration`, se puede modificar que índices de elasticsearch va a leer, el campos a usar como `timestamp`, etc. Interesante en la configuración, ir a la segunda pestaña, `Log Columns`, donde podemos indicar qué campos queremos mostrar en la pantalla.
 
 Por ejemplo, dado que no tenemos el campo `event.dataset`, lo podemos eliminar y guardar con `Update source`.
 
@@ -100,11 +100,11 @@ Y en Kibana borraremos el índice generado para los logs de filebeat. Para ello,
 
 ![Kibana Management](./img/management-icon.png)
 
-Select `Index Management` under the Elasticearch menu.
+Selecciona `Index Management` en el grupo Elsticsearch.
 
 ![Index Management](./img/index-management.png)
 
-Delete the filebeat index/indices.
+Borrar el índice o índices `filebeat`.
 
 ![Delete Index](./img/delete-filebeat.png)
 
