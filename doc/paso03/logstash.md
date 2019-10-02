@@ -215,4 +215,4 @@ Adicionalmente, podemos comprobar que al pulsar por ejemplo en un `host_name.key
 
 ## Finalizamos
 
-Para finalizar, comentaremos cuales podrían ser los [**siguientes pasos**](../paso04/README.md).s
+Para finalizar, comentaremos cuales podrían ser los [**siguientes pasos**](../paso04/README.md).
