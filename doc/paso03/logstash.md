@@ -91,7 +91,7 @@ Para visualizar los logs debemos primero crear un [Index Pattern](https://www.el
 
 Si no le indicamos lo contrario en la configuración de filebeat para envío a elasticsearch, los índices que se crearán son con el nombre `logstash-flog-*`.
 
-![Index Patterns](./img/index-pattern.png)
+![Index Patterns](./img/lg-index-pattern.png)
 
 Por lo tanto, en la sección de Management de Kibana, seleccionamos `Index Patterns` en el grupo `Kibana`.
 
