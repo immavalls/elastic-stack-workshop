@@ -58,21 +58,24 @@ Volvemos a Kibana, y selecionamos en el menú de la izquierda `Logs`.
 
 ![Logs Menu](./img/logs-icon.png)
 
-Veremos logs logs que están entrando en el sistema genrados por Flog.
+Veremos logs logs que están entrando en el sistema generados por Flog.
 
 ![Logs View](./img/logs-view.png)
 
-Si pulsamos en la esquina superior izquierda, ´Stream Live`, se irán actualizando los logs a medida que llegan a elasticsearch.
+Si pulsamos en la esquina superior derecha, `Stream Live`, se irán actualizando los logs a medida que llegan a elasticsearch.
 
-También podemos modificar el tamaño de letra de los logs, si queremos hacer wrapping, etc.
+También podemos modificar el tamaño de letra de los logs, si queremos hacer wrapping, etc. con la opción del menú `Customize`.
 
 ![Logs Customization](./img/logs-view-custom.png)
 
-Pulsando en `Configuration`, se puede modificar que índices de elasticsearch va a leer, el campos a usar como `timestamp`, etc. Interesante en la configuración, ir a la segunda pestaña, `Log Columns`, donde podemos indicar qué campos queremos mostrar en la pantalla.
+Pulsando en `Configuration`, se puede modificar que [índices](https://www.elastic.co/guide/en/elasticsearch/reference/6.2/_basic_concepts.html#_index) de elasticsearch kibana nos va a mostrar, el campo a usar como `timestamp`, etc. Interesante en la configuración, ir a la segunda pestaña, `Log Columns`, donde podemos indicar qué campos queremos mostrar en la pantalla.
 
-Por ejemplo, dado que no tenemos el campo `event.dataset`, lo podemos eliminar y guardar con `Update source`.
+Dado que no tenemos el campo `event.dataset`...
 
 ![Logs Configuration](./img/logs-view-config-1.png)
+
+lo podemos eliminar y guardar con `Update source`.
+
 ![Logs Configuration](./img/logs-view-config-2.png)
 
 A partir de aquí la vista de los logs presentará el siguiente aspecto.
@@ -100,11 +103,11 @@ Y en Kibana borraremos el índice generado para los logs de filebeat. Para ello,
 
 ![Kibana Management](./img/management-icon.png)
 
-Selecciona `Index Management` en el grupo Elsticsearch.
+Selecciona `Index Management` en el grupo Elasticsearch.
 
 ![Index Management](./img/index-management.png)
 
-Borrar el índice o índices `filebeat`.
+Y borra el índice o índices `filebeat`.
 
 ![Delete Index](./img/delete-filebeat.png)
 
