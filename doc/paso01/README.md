@@ -177,13 +177,13 @@ Nos aparecerá la siguiente vista.
 
 ![Discover Overview](./img/discover-overview.png)
 
-Estamos viendo los datos que envía Metricbeat, por defecto en los últimos 15  minutos. En la imagen, podemos ver que han entrado 7188 documentos en los últimos 15 minutos. Estos documentos tendrán los distintas métricas que está recolectando Metricbeat.
+Estamos viendo los datos que envía Metricbeat, por defecto en los últimos 15  minutos. En la imagen, podemos ver que han entrado 7188 documentos en los últimos 15 minutos. Estos documentos tendrán los distintas métricas que está recolectando Metricbeat (cpu, memoria, I/O, etc.).
 
 Esta ventana temporal se puede ajustar usando el `Time Picker` en la esquina superior derecha. Lo cambiaremos por ejemplo a los últimos 30 minutos y pulsaremos el botón `Update` para aplicar el cambio.
 
 ![Time Picker](./img/discover-time-picker.png)
 
-Podemos también expandir los documentos que van entrando, pulsando sobre un evento concreto en la pantalla central. Podemos ver los datos en formato tabla o el documento JSON que ha llegado a Elasticsearch.
+Podemos también expandir los documentos que van entrando, pulsando sobre un evento concreto en la pantalla central. Así podremos visualizar o bien los datos en formato tabla o bienel documento JSON que ha llegado a Elasticsearch.
 
 ![Discover Documents](./img/discover-documents.png)
 
