@@ -22,11 +22,11 @@ Y nos gustaría que en elastic se guardara como:
 }
 ```
 
-Para realizar esta transformación, recurriremos a las pipelines de ingesta de elasticsearch, que se ejecutarán en los [nodos de ingesta](https://www.elastic.co/guide/en/elasticsearch/reference/7.3/ingest.html).
+Para realizar esta transformación, recurriremos a las [pipelines](https://www.elastic.co/guide/en/elasticsearch/reference/7.3/pipeline.html) de ingesta de elasticsearch, que se ejecutarán en los [nodos llamados de ingesta](https://www.elastic.co/guide/en/elasticsearch/reference/7.3/ingest.html).
 
 Dado que tenemos un cluster elasticsearch con un sólo nodo, este nodo realizará todos los roles (master, data, ingest, etc.). Más información sobre roles de los nodos en la [documentación](https://www.elastic.co/guide/en/elasticsearch/reference/7.3/modules-node.html).
 
-Las pipelines de ingesta proporcionan a elasticsearch un mecanismo para pre-procesar los documentos de entrada antes de almacenarlos. Con una pipeline, podemos parsear, transformar y enriquecer los datos de entrada. Se trata de un conjunto de [procesadores](https://www.elastic.co/guide/en/elasticsearch/reference/7.3/ingest-processors.html) que se aplican de forma secuencial a los documentos de entrada, para generar el documento definitivo que almacenará elasticsearch.
+Las pipelines de ingesta proporcionan a elasticsearch un mecanismo para pre-procesar los documentos antes de almacenarlos. Con una pipeline, podemos parsear, transformar y enriquecer los datos de entrada. Se trata de un conjunto de [procesadores](https://www.elastic.co/guide/en/elasticsearch/reference/7.3/ingest-processors.html) que se aplican de forma secuencial a los documentos de entrada, para generar el documento definitivo que almacenará elasticsearch.
 
 ![Ingest pipeline](./img/ingest-pipeline.png)
 
@@ -38,9 +38,9 @@ En este apartado realizaremos:
 
 ## Creación de la pipeline de ingesta
 
-En primer lugar, vamos a crear una simple pipeline de ingesta, basada en un procesador de tipo [dissect](https://www.elastic.co/guide/en/elasticsearch/reference/7.3/dissect-processor.html), que nos parseará el campo `message` de entrada, en los diversos campos que queremos a la salida (`process_name`, `process_id`, `host_name`, etc).
+En primer lugar, vamos a crear una simple pipeline de ingesta, basada en un procesador de tipo [dissect](https://www.elastic.co/guide/en/elasticsearch/reference/7.3/dissect-processor.html), que nos parseará el campo `message` de entrada generando los diversos campos que queremos a la salida (`process_name`, `process_id`, `host_name`, etc).
 
-Antes de crear esa pipeline, es interesante simular cual sería su comportamiento. Para ello, en Kibana seleccionaremos en el menú de la izquierda `Dev Tools`.
+Antes de crear esta pipeline, es interesante simular cual sería su comportamiento. Para ello, en Kibana seleccionaremos en el menú de la izquierda `Dev Tools`.
 
 ![Dev Tools](./img/devtools-icon.png)
 
@@ -80,10 +80,10 @@ Al ejecutar esta petición, podremos comprobar si el JSON resultante es el esper
 
 ![Simulate Ingest pipeline](./img/ingest-pipeline-simulate.png)
 
-Esta petición [simula](https://www.elastic.co/guide/en/elasticsearch/reference/7.3/simulate-pipeline-api.html) una pipeline, usando en endpoint el API REST de elasticsearch `_ingest/pipeline/_simulate`. En el contenido del cuerpo, tenemos un JSON con los procesadores de la pipeline:
+Esta petición [simula](https://www.elastic.co/guide/en/elasticsearch/reference/7.3/simulate-pipeline-api.html) una pipeline, usando el endpoint del API REST de elasticsearch `_ingest/pipeline/_simulate`. En el contenido del cuerpo, tenemos un JSON con los procesadores de la pipeline:
 
-- **dissect**: Se encarga de separar el texto que viene en el campo message a partir de los espacios en blanco, y crea distintos campos (timestamp, host_name, process_name, etc.) con los valores que extrae del campo message de entrada.
-- **remove**: eliminará el campo `message`, una vez modelado, no nos interesa guardara esta información redundante.
+- [**dissect**](https://www.elastic.co/guide/en/elasticsearch/reference/7.3/dissect-processor.html): Se encarga de separar el texto que viene en el campo message a partir de los espacios en blanco, y crea distintos campos (timestamp, host_name, process_name, etc.) con los valores que extrae del campo message de entrada.
+- [**remove**](https://www.elastic.co/guide/en/elasticsearch/reference/7.3/remove-processor.html): eliminará el campo `message` ya que, una vez modelado, no nos interesa guardara esta información redundante.
 
 Una vez comprobamos que la pipeline de ingesta funciona según deseamos, la daremos de alta en elasticsearch para poder usarla. Para ello, en la misma consola de Dev Tools, ejecutaremos:
 
@@ -107,13 +107,13 @@ PUT _ingest/pipeline/logs-pipeline
 }
 ```
 
-Creando la pipeline de ingesta **logs-pipeline**, que usaremos en el siguiente apartado.
+Creando la pipeline de ingesta **logs-pipeline**, que usaremos en el próximo apartado.
 
 ![Ingest pipeline](./img/ingest-pipeline-put.png)
 
 ## Configuracion de Filebeat
 
-Ahora tenemos que indicar a elasticsearch que los documentos que vayan a ser almacenados en los índices creados por filebeat deben ejecutar primero esta pipeline. Para ello, editaremos el fichero de configuración de filebeat. [filebeat/config/filebeat.yml](../../filebeat/config/filebeat.yml), y en la sección `output.elasticsearch` descomentaremos la línea `pipeline: logs-pipeline`.
+Ahora tenemos que indicar a elasticsearch que los documentos que vayan a ser almacenados en los índices creados por filebeat deben pasar primero esta pipeline que los va a transformar. Para ello, editaremos el fichero de configuración de filebeat. [filebeat/config/filebeat.yml](../../filebeat/config/filebeat.yml), y en la sección `output.elasticsearch` descomentaremos la línea `pipeline: logs-pipeline`.
 
 ```yaml
 output.elasticsearch:
@@ -145,9 +145,9 @@ docker logs -f filebeat
 
 ## Visualizar logs en Discover
 
-Volvemos a Kibana. 
+Volvemos a Kibana.
 
-Para visualizar los logs debemos primero crear un [Index Pattern](https://www.elastic.co/guide/en/kibana/7.3/tutorial-define-index.html). Los index patterns nos permiten acceder a los índices en elasticsearch, y, por lo tanto, a los documentos que tenemos almacenados en estos índices.
+Para visualizar los logs debemos primero crear un [Index Pattern](https://www.elastic.co/guide/en/kibana/7.3/tutorial-define-index.html). Los index patterns nos permiten acceder desde Kibana a los índices en elasticsearch, y, por lo tanto, a los documentos que tenemos almacenados en estos índices.
 
 Si no le indicamos lo contrario en la configuración de filebeat para envío a elasticsearch, los índices que se crearán son con el nombre `filebeat-*`.
 
@@ -176,7 +176,7 @@ Y en el selector escogemos el index pattern que acabamos de crear, `filebeat-*`.
 
 ![Discover Filebeat](./img/discover-filebeat.png)
 
-Es posible usar la barra de búsqueda para filtrar nuestros datos. Por ejemplo, seleccionar `event_name:` y nos proporcionará sugerencias para filtrar la búsqueda. En el ejemplo, podemos filtrar por `event_data: "ID222" or event_data: "ID638"`
+Es posible usar la barra de búsqueda para filtrar nuestros datos. Por ejemplo, seleccionar `event_data:` y nos proporcionará sugerencias para filtrar la búsqueda. En el ejemplo, podemos filtrar por `event_data: "ID222" or event_data: "ID638"`
 
 ![Discover KQL](./img/discover-kql.png)
 
@@ -200,9 +200,9 @@ Pulsaremos el botón `Save` en la barra superior y guardaremos la búsqueda con 
 
 ## Creación de Dashboard en Kibana
 
-Vamos a crear un simple dashboard en Kibana para visualizar nuestros datos. Para ello, crearemos primero diversas visualizaciones.
+Vamos a crear un simple dashboard en Kibana para analizar nuestros datos. Para ello, crearemos primero diversas visualizaciones.
 
-En Kibana, seleccionar el menú `Visualize`.
+En Kibana, selecciona el menú `Visualize`.
 
 ![Visualize](./img/visualize-icon.png)
 
@@ -256,9 +256,13 @@ Guardar esta visualización con el nombre `[Filebeat] Process/Host cloud tag`.
 
 Pasaremos finalmente a crear un dashboard que incluya estas visualizaciones.
 
-Seleccionamos en el menú de la izquierda `Dashboard`. Y creamos un nuevo dashboard pulsando el botón `Create new dashboard`. Si estamos visualizando otro dashboard, volver al menús clicando en el enlace `Dashboard` en el menú superior.
+Seleccionamos en el menú de la izquierda `Dashboard`. Y creamos un nuevo dashboard pulsando el botón `Create new dashboard`. 
+
+Si estamos visualizando otro dashboard, volveremos antes al menú inicial haciendo click en el enlace `Dashboard` en el menú superior.
 
 ![Dashboard Menu](./img/menu-dashboard.png)
+
+Ya podemos pulsar `Create new dashboard`.
 
 ![Dashboard Create](./img/create-dashboard.png)
 
@@ -278,4 +282,4 @@ Adicionalmente, podemos comprobar que al pulsar por ejemplo en un host_name conc
 
 ## Finalizamos
 
-Para finalizar, comentaremos cuales podrían ser los [**siguientes pasos**](../paso04/README.md).
+Para terminar, comentaremos cuales podrían ser los [**siguientes pasos**](../paso04/README.md).

@@ -16,7 +16,7 @@ El documento que hemos acabado guardando en Elasticsearch tiene un campo `timest
 
 Sería interesante, y veremos cómo, separar el contenido de este campo `message`, de forma que podamos explotar valores como el `nombre del proceso`, el `nombre del host`, etc. Es decir, darle estructura a los datos que nos llegan.
 
-Así podremos agrupar valores similares, visualizarlos, y explotar toda la potencia de nuestros logs. ¿Cuáles son los nombre de host más habituales (`customere-services.org`, `nationalviral.io`, etc.)? ¿Y los ids de proceso?
+Así podremos agrupar valores similares, visualizarlos, y explotar toda la potencia de nuestros logs. Nos permitirá contestar preguntas como ¿Cuáles son los nombre de host más habituales (`customere-services.org`, `nationalviral.io`?)? ¿Y los ids de proceso?
 
 Para ello, necesitaremos conocer la **estructura** de nuestros logs, e indicársela a Elasticsearch.
 
