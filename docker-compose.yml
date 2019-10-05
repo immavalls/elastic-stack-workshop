@@ -73,20 +73,20 @@ services:
       kibana: { condition: service_healthy }
   
   # Filebeat container
-  filebeat:
-    container_name: filebeat
-    hostname: filebeat
-    image: "docker.elastic.co/beats/filebeat:${ELK_VERSION}"
-    volumes:
-      # Mount filebeat configuration
-      - ./filebeat/config/filebeat.yml:/usr/share/filebeat/filebeat.yml
-      # Mount log directory into container /tmp/log
-      - ./test/:/var/log/
-    networks:
-      - elk
-    restart: on-failure
-    depends_on:
-      elasticsearch: { condition: service_healthy }  
+  # filebeat:
+  #   container_name: filebeat
+  #   hostname: filebeat
+  #   image: "docker.elastic.co/beats/filebeat:${ELK_VERSION}"
+  #   volumes:
+  #     # Mount filebeat configuration
+  #     - ./filebeat/config/filebeat.yml:/usr/share/filebeat/filebeat.yml
+  #     # Mount log directory into container /tmp/log
+  #     - ./test/:/var/log/
+  #   networks:
+  #     - elk
+  #   restart: on-failure
+  #   depends_on:
+  #     elasticsearch: { condition: service_healthy }  
   
   # Logstash container
   # logstash:
