@@ -155,13 +155,13 @@ En el filtro buscar `[Metricbeat System] ECS ` y seleccionar `[Metricbeat System
 
 ![Dashboard](./img/metricbeat-dashboard-host-overview.png)
 
-Habitualmente Beats permite cargar dashboards pre-configurados en Kibana, que nos dan una buena base para la monitorización. Por ejemplo, para Metricbeats consultar [aquí](https://www.elastic.co/guide/en/beats/metricbeat/7.3/load-kibana-dashboards.html). Por ejemplo, añadiendo lo siguiente en [metricbeat/config/metricbeat.yml](../../metricbeat/config/metricbeat.yml), al arrancar Metricbeat cargará en Kibana sus dashboards.
+Habitualmente Beats permite cargar dashboards pre-configurados en Kibana, que nos dan una buena base para la monitorización. Por ejemplo, añadiendo lo siguiente en [metricbeat/config/metricbeat.yml](../../metricbeat/config/metricbeat.yml), al arrancar Metricbeat cargará en Kibana sus dashboards.
 
 ```yaml
 setup:
   kibana.host: "kibana:5601"
-  kibana.username: 'elastic}'
-  kibana.password: 'changeme}'
+  kibana.username: 'elastic'
+  kibana.password: 'changeme'
   dashboards.enabled: true
 ```
 
