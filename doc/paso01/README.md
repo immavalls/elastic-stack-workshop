@@ -141,7 +141,7 @@ E ir al detalle de métricas para ese contenedor.
 
 ![Infrastructure Docker Elasticsearch Metrics](./img/infrastructure-docker-elasticsearch.png)
 
-La configuración de metricbeat la podemos consultar en el fichero [metricbeat/config/metricbeat.yml](../../metricbeat/config/metricbeat.yml). Los módulos activados en este caso son el de [sistema](../../metricbeat/config/modules.d/system.yml) y el de [docker](../../metricbeat/config/modules.d/docker.yml). Los ficheros para cada módulo se ubican en la carpeta [sistema](../../metricbeat/config/modules.d/system.yml) y el de `/modules.d`. La lista completa de módulos disponibles se puede consultar en la [documentación](https://www.elastic.co/guide/en/beats/metricbeat/7.3/metricbeat-modules.html).
+La configuración de metricbeat la podemos consultar en el fichero [metricbeat/config/metricbeat.yml](../../metricbeat/config/metricbeat.yml). Los módulos activados en este caso son el de [sistema](../../metricbeat/config/modules.d/system.yml) y el de [docker](../../metricbeat/config/modules.d/docker.yml). Los ficheros de configuración de cada módulo se ubican en la carpeta `./metricbeat/modules.d`. La lista completa de módulos disponibles se puede consultar en la [documentación](https://www.elastic.co/guide/en/beats/metricbeat/7.3/metricbeat-modules.html).
 
 Adicionalmente, hemos configurado Metricbeat para que haga el [setup de sus dashboards](https://www.elastic.co/guide/en/beats/metricbeat/7.3/load-kibana-dashboards.html) en Kibana.
 
