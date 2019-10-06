@@ -115,7 +115,7 @@ Y en el selector escogemos el index pattern que acabamos de crear, `logstash-flo
 
 ![Discover Logstash](./img/discover-logstash.png)
 
-Es posible usar la barra de búsqueda para filtrar nuestros datos. Por ejemplo, seleccionar `event_name:` y nos proporcionará sugerencias para filtrar la búsqueda. En el ejemplo, podemos filtrar por `event_data: "ID882" or event_data: "ID972"`
+Es posible usar la barra de búsqueda para filtrar nuestros datos. Por ejemplo, seleccionar `event_data:` y nos proporcionará sugerencias para filtrar la búsqueda. En el ejemplo, podemos filtrar por `event_data: "ID882" or event_data: "ID972"`
 
 ![Discover KQL](./img/lg-discover-kql-2.png)
 
