@@ -99,7 +99,7 @@ Para pasar al siguiente apartado, pararemos también filebeat ejecutando:
 docker-compose stop filebeat
 ```
 
-Y en Kibana borraremos el índice generado para los logs de filebeat. Para ello, seleccionar en el menú izquierdo `Management`.
+Y en Kibana borraremos el índice generado para los logs de Filebeat. Para ello, selecciona en el menú izquierdo `Management`.
 
 ![Kibana Management](./img/management-icon.png)
 
