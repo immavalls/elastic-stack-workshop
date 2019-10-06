@@ -166,7 +166,7 @@ Selecciona `Index Management` en el grupo Elasticsearch.
 
 ![Index Management](./img/index-management.png)
 
-Y borra el índice o índices `logstash-flogs`.
+Y borra el índice o índices `logstash-flog`.
 
 ![Delete Index](./img/delete-logstash.png)
 
